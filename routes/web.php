@@ -54,3 +54,5 @@ Route::post('/produtos/remover_imagem', 'ProdutosController@remove_image');
 Route::post('/produtos/listar/produtos/id', 'ProdutosController@listar_produtos_id');
 Route::delete('/paginas/remover_icone/{id}', 'ProdutosController@remove_icone');
 Route::get('/produtos/{id}', 'DashboardController@produtos');
+
+Route::get('/logout', 'Auth\LoginController@logout');
