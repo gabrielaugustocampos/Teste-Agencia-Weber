@@ -5,6 +5,7 @@
 
                 <tr>
                     <th>Nome</th>
+                    <th>Descrição</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
@@ -16,6 +17,7 @@
                 @foreach ($categorias as $categoria)
                 <tr>
                     <th>{{$categoria->nome}}</th>
+                    <th>{{$categoria->descricao}}</th>
                     <th>
                         <div class="row">
                             <div class="col-md-12">
@@ -71,6 +73,7 @@
             <tfoot style="background-color: #335acb;color: white;">
                 <tr>
                     <th>Nome</th>
+                    <th>Descrição</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>

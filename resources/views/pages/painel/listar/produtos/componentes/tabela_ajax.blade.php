@@ -4,7 +4,7 @@
   <div class="result_localizacao">
     <div class="form-group">
       <!-- <label for="exampleFormControlSelect1">Localização</label> -->
-      <select class="form-control" id="select_localizacao">
+      <select class="form-control" id="select_categoria">
         <option selected value="none">Selecione uma Categoria</option>
         @foreach ($categorias as $item)
           <option value="{{$item->id}}">{{$item->nome}}</option>
@@ -27,7 +27,7 @@
 </div>
 <div class="col-md-6 col-sm-12" style="display: flex;align-items: center;">
   <div class="form-group" style="width: 100%;">
-    <button id="btn_buscar_paginas" type="button" class="btn btn-secondary" style="width: 100%;">
+    <button id="btn_buscar_produtos" type="button" class="btn btn-secondary" style="width: 100%;">
       <i class="fas fa-search"></i> Buscar
     </button>
   </div>
@@ -57,6 +57,7 @@
             <tr>
               <th>Nome</th>
               <th>Descrição</th>
+              <th>Preço</th>
               <th>Status</th>
               <th>Ações</th>
             </tr>
@@ -68,7 +69,8 @@
               @foreach ($produtos as $produto)
                 <tr>
                   <th>{{$produto->nome}}</th>
-                  <th>{{ str_limit($produto->texto, $limit = 50, $end = '...') }}</th>
+                  <th>{{ str_limit(strip_tags($produto->texto), $limit = 30, $end = '...') }}</th>
+                  <th><center>{{str_replace('.', ',', number_format($item->preco, 2))}}</center></th>
                   <th>
                     <div class="row">
                       <div class="col-md-12">
@@ -115,6 +117,7 @@
                 <tr>
                   <th>Nome</th>
                   <th>Descrição</th>
+                  <th>Preço</th>
                   <th>Status</th>
                   <th>Ações</th>
                 </tr>

@@ -5,10 +5,16 @@
     <div class="row">
         <form class="w-100" style="display: flex;flex-wrap: wrap;justify-content: center;align-items:center;" action="{{route('categorias.store')}}" method="POST">
             @csrf
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group w-100">
                     <label for="categorias_nome">Nome</label>
                     <input class="form-control form-control-user w-100" type="text" placeholder="Nome da categoria" name="nome" id="categorias_nome">
+                  </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group w-100">
+                    <label for="categorias_nome">Descrição</label>
+                    <input class="form-control form-control-user w-100" type="text" placeholder="Descrição da categoria" name="descricao" id="categorias_descricao">
                   </div>
             </div>
 

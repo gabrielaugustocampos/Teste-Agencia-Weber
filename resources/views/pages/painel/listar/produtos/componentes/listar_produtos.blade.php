@@ -9,7 +9,7 @@
                 <div class="result_localizacao">
                     <div class="form-group">
                         <!-- <label for="exampleFormControlSelect1">Localização</label> -->
-                        <select class="form-control" id="select_localizacao">
+                        <select class="form-control" id="select_categoria">
                             <option selected value="none">Selecione uma Categoria</option>
                             @foreach ($categorias as $item)
                             <option value="{{$item->id}}">{{$item->nome}}</option>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="col-md-6 col-sm-12">
-                <div class="result_localizacao">
+                <div class="result_produtos">
                     <div class="form-group">
                         <!-- <label for="exampleFormControlSelect1">Localização</label> -->
                         <select class="form-control" id="select_filtro">
@@ -34,7 +34,7 @@
 
             <div class="col-md-6 col-sm-12" style="display: flex;align-items: center;">
                 <div class="form-group" style="width: 100%;">
-                    <button id="btn_buscar_paginas" type="button" class="btn btn-secondary" style="width: 100%;">
+                    <button id="btn_buscar_produtos" type="button" class="btn btn-secondary" style="width: 100%;">
                         <i class="fas fa-search"></i> Buscar
                     </button>
                 </div>
@@ -64,6 +64,7 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>Descrição</th>
+                                        <th>Preço</th>
                                         <th>Status</th>
                                         <th>Ações</th>
                                     </tr>
@@ -75,7 +76,8 @@
                                     @foreach ($produtos as $item)
                                     <tr>
                                         <th>{{$item->nome}}</th>
-                                        <th>{{ str_limit($item->texto, $limit = 30, $end = '...') }}</th>
+                                        <th>{{ str_limit(strip_tags($item->texto), $limit = 30, $end = '...') }}</th>
+                                        <th><center>{{str_replace('.', ',', number_format($item->preco, 2))}}</center></th>
                                         <th>
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -132,6 +134,7 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>Descrição</th>
+                                        <th>Preço</th>
                                         <th>Status</th>
                                         <th>Ações</th>
                                     </tr>
@@ -192,21 +195,17 @@
     });
 
 
-    $(document).on("click", "#btn_buscar_paginas", function () {
-        let id_localizacao = $("#select_localizacao").val();
+    $(document).on("click", "#btn_buscar_produtos", function () {
+        let id_categoria = $("#select_categoria").val();
         let valor_filtro = $('#select_filtro').val();
         $.ajax({
-            url: "/paginas/listar/produtos/id",
+            url: "/produtos/listar/produtos/id",
             type: 'post',
             data: {
                 _token: '{!! csrf_token() !!}',
                 valor_filtro: valor_filtro,
-                id_localizacao: id_localizacao,
+                id_categoria: id_categoria,
             },
-
-            // beforeSend: function(){
-            //   loading_show();
-            // },
 
             success: function (result) {
                 // loading_hide();
@@ -214,14 +213,13 @@
                 if (result == 1) {
                     Swal.fire(
                         'Ops!',
-                        'Selecione uma localização para consultar!',
+                        'Selecione uma categoria para consultar!',
                         'error'
                     )
                 } else {
                     $('.tabela').empty();
                     $('.tabela').html(result);
                 }
-                // $('#modal_cadastro_localizacao').modal('hide');
             }
         });
     });

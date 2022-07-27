@@ -19,13 +19,24 @@
       </div>
     @endif
     <div class="row" style="display: flex;flex-direction: row;justify-content: center;">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
-          <label for="exampleFormControlSelect1">nome</label>
+          <label for="exampleFormControlSelect1">Nome</label>
           @if (!empty($produtos->nome))
-            <input type="text" class="form-control form-control-user" value="{{$produtos->nome}}" name="nome_produto" placeholder="Nome da Página">
+            <input type="text" class="form-control form-control-user" value="{{$produtos->nome}}" name="nome_produto" placeholder="Nome do Produto">
           @else
-            <input type="text" class="form-control form-control-user" name="nome_produto" placeholder="Nome da Produto">
+            <input type="text" class="form-control form-control-user" name="nome_produto" placeholder="Nome do Produto">
+          @endif
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Preço</label>
+          @if (!empty($produtos->preco))
+            <input type="text" class="form-control form-control-user" value="{{str_replace('.', ',', $produtos->preco)}}" name="preco" placeholder="Preço1">
+          @else
+            <input type="text" class="form-control form-control-user" name="preco" placeholder="Preço">
           @endif
         </div>
       </div>
@@ -106,7 +117,7 @@
         </div>
 
 
-      <div class="container">
+      <div class="container formulario_imagem">
         <div class="row">
           <div class="form-group" style="width: 100%;">
             <div class="file-upload">
@@ -199,7 +210,7 @@
       <input type="hidden" name="icone" id="input_icone" value="">
       <div class="col-md-3 col-sm-12" style="display: flex;align-items: center;">
         <div class="form-group" style="width: 100%;">
-          <button id="btn_cadastra_pagina" type="button" class="btn btn-info" style="width: 100%;">
+          <button id="btn_cadastra_produto" type="button" class="btn btn-info" style="width: 100%;">
             <i class="fas fa-folder-plus"></i> Salvar
           </button>
         </div>
@@ -654,7 +665,7 @@ if(typeof icon !== 'undefined'){
       }
     });
 
-    $(document).on("click","#btn_cadastra_pagina",function() {
+    $(document).on("click","#btn_cadastra_produto",function() {
       let className = $('#icone').attr('class');
       $("#input_icone").val(className);
 
@@ -673,20 +684,30 @@ if(typeof icon !== 'undefined'){
     });
 
     $(document).on("click","#btn_remove",function() {
-      let id_pagina = $(this).val();
+      let id_produto = $(this).val();
 
       $.ajax({
         url: "/produtos/remover_imagem",
         type: 'post',
         data:{
           _token: '{!! csrf_token() !!}',
-          id_pagina:id_pagina,
+          id_produto:id_produto,
         },
-        success: function(result){
-          location.reload();
-          // $("#form_cadastro_produto").empty();
-          // $("#form_cadastro_produto").html(result);
+        // success: function(result){
+        //   location.reload();
+        //   // $("#form_cadastro_produto").empty();
+        //   // $("#form_cadastro_produto").html(result);
 
+        // }
+        success: function (result) {
+          // loading_hide();
+          $('.formulario_imagem').empty();
+          $('.formulario_imagem').html(result);
+           alert("Eu sou um alert!");
+            
+        },
+        error: function () {
+           alert("Eu sou um alert2!");               
         }
       });
 

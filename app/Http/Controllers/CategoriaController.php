@@ -21,7 +21,8 @@ class CategoriaController extends Controller
 
     public function store(Request $req) {
         Categoria::create([
-            'nome' => $req->nome
+            'nome' => $req->nome,
+            'descricao' => $req->descricao
         ]);
 
         return redirect()->back()->with('success', 'Cadastrado com sucesso');
@@ -55,6 +56,7 @@ class CategoriaController extends Controller
         if($validator->passes()) {
             $categoria = Categoria::find($id);
             $categoria->nome = $request->input('nome');
+            $categoria->descricao = $request->input('descricao');
             $categoria->save();
 
             return back()->with([
