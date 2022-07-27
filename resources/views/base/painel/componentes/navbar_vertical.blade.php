@@ -2,7 +2,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
-  <hr class="sidebar-divider my-0"> --}}
+  <hr class="sidebar-divider my-0"> 
 
   <!-- Nav Item - Dashboard -->
   <li class="nav-item">
