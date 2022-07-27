@@ -27,7 +27,7 @@ class ProdutosController extends Controller
         // dd($req);
         if ($req->valor_filtro == "none" && $req->id_categoria == "none") {
 
-            return 1;
+            $produtos = Produtos::select('id_produto', 'nome', 'preco', 'texto', 'excluido')->get();
 
         } else if ($req->valor_filtro == "none" && $req->id_categoria != "none") {
 

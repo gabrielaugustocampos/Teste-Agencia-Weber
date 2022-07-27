@@ -5,7 +5,7 @@
     <div class="tabela">
         <div class="row">
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-3 col-sm-12">
                 <div class="result_localizacao">
                     <div class="form-group">
                         <!-- <label for="exampleFormControlSelect1">Localização</label> -->
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-3 col-sm-12">
                 <div class="result_produtos">
                     <div class="form-group">
                         <!-- <label for="exampleFormControlSelect1">Localização</label> -->
@@ -32,14 +32,14 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12" style="display: flex;align-items: center;">
+            <div class="col-md-3 col-sm-12" style="display: flex;align-items: center;">
                 <div class="form-group" style="width: 100%;">
                     <button id="btn_buscar_produtos" type="button" class="btn btn-secondary" style="width: 100%;">
                         <i class="fas fa-search"></i> Buscar
                     </button>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12" style="display: flex;align-items: center;">
+            <div class="col-md-3 col-sm-12" style="display: flex;align-items: center;">
                 <div class="form-group" style="width: 100%;">
                     <a href="{{url('/cadastro_produtos')}}" class="btn btn-success" style="width: 100%;">
                         <i class="fas fa-folder-plus"></i> Adicionar Produto
@@ -103,13 +103,13 @@
                                             <div class="row">
                                                 @if ($item->excluido == 0)
                                                 <div class="col-md-6" style="display: flex;justify-content: center;">
-                                                    <button type="button" class="btn btn-danger status"
+                                                    <button type="button" class="btn btn-danger status_apagar"
                                                         value="{{$item->id_produto}}"><i
                                                             class="fas fa-times-circle"></i></button>
                                                 </div>
                                                 @else
                                                 <div class="col-md-6" style="display: flex;justify-content: center;">
-                                                    <button type="button" class="btn btn-info status"
+                                                    <button type="button" class="btn btn-info status_restaurar"
                                                         value="{{$item->id_produto}}"><i
                                                             class="fas fa-trash-restore-alt"></i></button>
                                                 </div>
@@ -149,6 +149,9 @@
     </div>
 </div>
 <!-- /.container-fluid -->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javascript">
     function loading_show() {
         $('.loading').html("<img src='{{asset('img/loader.gif')}}'/>").fadeIn('fast');
@@ -164,34 +167,98 @@
         }
     });
 
-    $(document).on("click", ".status", function () {
+    $(document).on("click", ".status_apagar", function () {
 
         let id_produto = $(this).val();
         let aux_evento_botao = 0;
-        $.ajax({
-            url: "/produtos/alterar_status/localizacao",
-            type: 'post',
-            data: {
-                _token: '{!! csrf_token() !!}',
-                id_produto: id_produto,
-                aux_evento_botao: aux_evento_botao,
-            },
 
-            // beforeSend: function(){
-            //   loading_show();
-            // },
+        Swal.fire({
+            title: 'Realmente deseja excluir?',
+            text: "Essa alteração poderá ser revertida.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Excluir'
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            success: function (result) {
-                // loading_hide();
-                $('.tabela').empty();
-                $('.tabela').html(result);
-                // alert("Eu sou um alert!");
+                $.ajax({
+                    url: "/produtos/alterar_status/localizacao",
+                    type: 'post',
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        id_produto: id_produto,
+                        aux_evento_botao: aux_evento_botao,
+                    },
+
+                    // beforeSend: function(){
+                    //   loading_show();
+                    // },
+
+                    success: function (resultado) {
+                        // loading_hide();
+                        $('.tabela').empty();
+                        $('.tabela').html(resultado);
+                        
+                    }
+                });
                 
-            },
-            error: function () {
-                // alert("Eu sou um alert2!");               
+                Swal.fire(
+                    'Excluído com sucesso!',
+                    'Essa alteração poderá ser revertida caso mude de ideia.',
+                    'success'
+                    )
             }
-        });
+        })
+        
+    });
+
+    $(document).on("click", ".status_restaurar", function () {
+
+        let id_produto = $(this).val();
+        let aux_evento_botao = 0;
+
+        Swal.fire({
+            title: 'Realmente deseja restaurar?',
+            text: "Essa alteração poderá ser revertida.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Restaurar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: "/produtos/alterar_status/localizacao",
+                    type: 'post',
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        id_produto: id_produto,
+                        aux_evento_botao: aux_evento_botao,
+                    },
+
+                    // beforeSend: function(){
+                    //   loading_show();
+                    // },
+
+                    success: function (resultado) {
+                        // loading_hide();
+                        $('.tabela').empty();
+                        $('.tabela').html(resultado);
+                        
+                    }
+                });
+                
+                Swal.fire(
+                    'Restaurado com sucesso!',
+                    'Essa alteração poderá ser revertida caso mude de ideia.',
+                    'success'
+                    )
+            }
+        })
+
     });
 
 

@@ -1,6 +1,6 @@
 <div class="row">
 
-<div class="col-md-6 col-sm-12">
+<div class="col-md-3 col-sm-12">
   <div class="result_localizacao">
     <div class="form-group">
       <!-- <label for="exampleFormControlSelect1">Localização</label> -->
@@ -13,7 +13,7 @@
     </div>
   </div>
 </div>
-<div class="col-md-6 col-sm-12">
+<div class="col-md-3 col-sm-12">
   <div class="result_localizacao">
     <div class="form-group">
       <!-- <label for="exampleFormControlSelect1">Localização</label> -->
@@ -25,14 +25,14 @@
     </div>
   </div>
 </div>
-<div class="col-md-6 col-sm-12" style="display: flex;align-items: center;">
+<div class="col-md-3 col-sm-12" style="display: flex;align-items: center;">
   <div class="form-group" style="width: 100%;">
     <button id="btn_buscar_produtos" type="button" class="btn btn-secondary" style="width: 100%;">
       <i class="fas fa-search"></i> Buscar
     </button>
   </div>
 </div>
-<div class="col-md-6 col-sm-12" style="display: flex;align-items: center;">
+<div class="col-md-3 col-sm-12" style="display: flex;align-items: center;">
   <div class="form-group" style="width: 100%;">
     <a href="{{url('/cadastro_produtos')}}" class="btn btn-success" style="width: 100%;">
       <i class="fas fa-folder-plus"></i> Adicionar Produto
