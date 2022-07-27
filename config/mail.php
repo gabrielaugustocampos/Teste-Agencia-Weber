@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'no-reply@ecosoitic.com.br',
-        'name' =>'AllSeg',
+        'address' => '',
+        'name' =>'',
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'no-reply@ecosoitic.com.br',
+    'username' => '',
 
-    'password' => 'N0001EMAILy',
+    'password' => '',
 
     /*
     |--------------------------------------------------------------------------
