@@ -20,10 +20,12 @@ class CategoriaController extends Controller
     }
 
     public function store(Request $req) {
-        Categoria::create([
-            'nome' => $req->nome,
-            'descricao' => $req->descricao
-        ]);
+
+        $categoria = new Categoria;
+
+        $categoria->nome = $req->nome;
+        $categoria->descricao = $req->descricao;
+        $categoria->save();
 
         return redirect()->back()->with('success', 'Cadastrado com sucesso');
     }
